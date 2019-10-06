@@ -1,0 +1,19 @@
+Sunday October 6, 2019
+	Had three vulnerabilities in my dependencies:
+		set-value - high severity
+		mixin-deep - high severity
+		lodash.template - critical severity
+
+	Steps that fixed the issues:
+		$ npm install --save mixin-deep
+		$ npm i --save lodash.template
+		$ npm i --save set-value
+
+	This upgraded dependencies but gave me an issue when running "npm start"
+	Issue log:
+		`Failed to compile.
+		 Cannot find module '/USER_PATH/node_modules/babel-preset-react-app/node_modules/@babel/runtime/helpers/slicedToArray
+
+	To fix this i did:
+		$ npm add @babel/runtime
+	Thanks to: https://github.com/creativetimofficial/ct-material-kit-pro-react/issues/3#issuecomment-478343855
