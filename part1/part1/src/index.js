@@ -30,16 +30,29 @@ const Header = (props) => {
     )
 }
 
-const Content = (props) => {
-    const item  = []
-
-    for(const [index, content] of props.parts.entries() ) {
-        item.push(<p> {content} {props.excercise[index]}  </p>)
-    } 
-
+const Part = (props) => {
     return(
         <div>
-            {item}
+            {props.partData}
+        </div>
+    )
+}
+
+const Content = (props) => {
+    var items = []
+
+    for(const [index, content] of props.parts.entries() ) {
+        items.push(<p> {content} {props.excercise[index]}  </p>)
+    } 
+
+    //Using pop method will give us the last item in the array, so we reverse it!
+    items = items.reverse()
+    
+    return(
+        <div>
+            <Part partData = {items.pop()}/>
+            <Part partData = {items.pop()}/>
+            <Part partData = {items.pop()}/>
         </div>
     )
 }
