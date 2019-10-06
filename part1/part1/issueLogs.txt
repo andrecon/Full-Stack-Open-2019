@@ -17,3 +17,8 @@ Sunday October 6, 2019
 	To fix this i did:
 		$ npm add @babel/runtime
 	Thanks to: https://github.com/creativetimofficial/ct-material-kit-pro-react/issues/3#issuecomment-478343855
+
+
+	Dependency issue was still not fixed since yarn.lock still had reference to 2.0.0 so i deleted yarn.lock file and install the dependencies again.
+		$ rm yarn.lock
+		$ yarn install --check-files
