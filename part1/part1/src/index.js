@@ -41,8 +41,8 @@ const Part = (props) => {
 const Content = (props) => {
     var items = []
 
-    for(const [index, content] of props.parts.entries() ) {
-        items.push(<p> {content} {props.excercise[index]}  </p>)
+    for(const [, content] of props.parts.entries() ) {
+        items.push(<p> {content.name} {content.exercises}  </p>)
     } 
 
     //Using pop method will give us the last item in the array, so we reverse it!
@@ -60,7 +60,7 @@ const Content = (props) => {
 const Total = (props) => {
     var total = 0
     for(const data of props.exercises){
-        total += data
+        total += data.exercises
     }
     return(
         <div>
@@ -87,29 +87,29 @@ const Total = (props) => {
 
 const App = () => {
     const course = 'Half Stack application development'
-    const part1 = {
-        name: 'Fundamentals of React',
-        exercises: 10
-    }
-    const part2 = {
-        name: 'Using props to pass data',
-        exercises: 7
-    }
-    const part3 = {
-        name: 'State of a component',
-        exercises: 14
-    }
+    const parts = [
+        {
+            name: 'Fundamentals of React',
+            exercises: 10
+        },
+        {
+            name: 'Using props to pass data',
+            exercises: 7
+        },
+        {
+            name: 'State of a component',
+            exercises: 14
+        }
+    ]
 
-    var partArray = [part1.name,part2.name,part3.name]
-    var excerciseArray = [part1.exercises,part2.exercises,part3.exercises]
+    // var partArray = [part1.name,part2.name,part3.name]
+    // var excerciseArray = [part1.exercises,part2.exercises,part3.exercises]
 
-
-    console.log(course.part1)
     return(
         <div>
-            <Header course={course.title} />
-            <Content parts={partArray} excercise={excerciseArray} />
-            <Total exercises={excerciseArray} />
+            <Header course={course} />
+            <Content parts={parts} />
+            <Total exercises={parts} />
         </div>
     )
 }
