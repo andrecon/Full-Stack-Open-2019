@@ -38,30 +38,25 @@ const Button = ({onClick, text}) => {
   )
 }
 
-const StatsInfo = ({category, count}) => {
+const Statistic = ({text,value}) => {
   return(
-    <div>
-      {category} : {count}
-    </div>
+    <tr>
+      <td>{text} </td> 
+      <td> {value}</td>
+    </tr>
   )
 }
 
-const Total = ({total, title}) => {
-  return(
-    <div>
-      {title} : {total}
-    </div>
-  )
-}
 
-const Average = ({positive, negative, neutral, title}) => {
-  const total = positive + negative + neutral
+const Statistics = ({positive, negative, neutral, title}) =>{
+  const total = positive+negative+neutral
 
   if(total === 0)
   {
     return(
       <div>
-        {title} : 0
+        <h1> {title} </h1>
+        No Feedback Given.
       </div>
     )
   }
@@ -70,32 +65,26 @@ const Average = ({positive, negative, neutral, title}) => {
 
   const average = trueScore/total
 
-  return(
-    <div>
-      {title} : {average}
-    </div>
-  )
-}
-
-const PositiveStats = ({title, positive, negative, neutral}) => {
-  const total = positive + negative + neutral
-
-  if(total === 0)
-  {
-    return(
-      <div>
-        {title} : 0
-      </div>
-    )
-  }
-
-  const stats = (positive / total) * 100
+  const positiveScore = (positive / total) * 100
 
   return(
     <div>
-      {title} : {stats} %
+      <Text title={title} />
+      <table>
+        <tbody>
+            <Statistic text="Good" value={positive} />
+            <Statistic text="Neutral" value={neutral} />
+            <Statistic text="Bad" value={negative} />
+            <Statistic text="All" value={total} />
+            <Statistic text="Average" value={average} />
+            <Statistic text="Positive" value={positiveScore} />
+        </tbody>
+      </table>
     </div>
   )
+
+
+  
 }
 
 const App = (props) => {
@@ -116,15 +105,7 @@ const App = (props) => {
       <Button onClick={countGood(good + 1)} text="Good" />
       <Button onClick={countNeutral(neutral +1)} text="Neutral" />
       <Button onClick={countBad(bad +1)} text="Bad" />
-      <Text title={stats} />
-      <StatsInfo category="Good" count={good} />
-      <StatsInfo category="Neutral" count={neutral} />
-      <StatsInfo category="Bad" count={bad} />
-
-      <Total title="All" total={good+neutral+bad} />
-      <Average title="Average" positive={good} negative={bad} neutral={neutral} />
-      <PositiveStats title="Positive" positive={good} negative={bad} neutral={neutral} />
-      
+      <Statistics title={stats} positive={good} negative={bad} neutral={neutral} />      
     </div>
   )
   }
