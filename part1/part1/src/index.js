@@ -22,183 +22,102 @@ import ReactDOM from 'react-dom'
 
 import React, {useState} from 'react'
 
-const Display = ({counter}) => {
+
+const History = (props) => {
+  if(props.allClicks.length === 0 ) {
     return(
-        <div>
-            {counter}
-        </div>
+      <div>
+        The app is used by pressing the buttons
+      </div>
     )
+  }
+
+  return(
+    <div>
+      Button press history: {props.allClicks.join(' ')}
+    </div>
+  )
 }
 
+
+//Passing Event Handlers to Child Components
 const Button = ({onClick, text}) => {
-    return(
-        <button onClick={onClick}>
-            {text}
-        </button>
-    )
+  return(
+    <button onClick={onClick}>
+      {text}
+    </button>
+  )
 }
 
 const App = (props) => {
-    const [counter, setCounter] = useState(0);
+//----------------------------------------
+  // const [clicks, setClicks] = useState({
+  //   left: 0,
+  //   right: 0
+  // })
 
-    const setToValue = (value) => setCounter(value)
+  // // const handleLeftClick = () => {
+  // //   const newClicks = {
+  // //     ...clicks,
+  // //     left: clicks.left + 1,
+  // //   }
 
-    //Double Arrow function example
-    /*
-    const setToValue = (value) => () => setCounter(value)
-    */
+  // //   setClicks(newClicks)
+  // // }
 
-    return(
-        <div>
-            <Display counter={counter}/>
-            <Button onClick={() => setToValue(counter + 1)} text="+" />
-            <Button onClick={() => setToValue(counter - 1)} text="-" />
-            <Button onClick={() => setToValue(0)} text="Reset" />
-        </div>
-    )
-}
+  // // const handleRightClick = () => {
+  // //   const newClicks = {
+  // //     ...clicks,
+  // //     right: clicks.right + 1
+  // //   }
+
+  // //   setClicks(newClicks)
+  // // }
+
+  // const handleLeftClick = () => {
+  //   setClicks({...clicks, left: clicks.left +1})
+  // }
+
+  // const handleRightClick = () => {
+  //   setClicks({...clicks, right: clicks.right + 1})
+  // }
+  
+//----------------------------------------
+
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(0)
+  //Every click is stored into a separate piece of state called allClicks that is initialized as an empty array:
+  const [allClicks, setAll] = useState([])
+
+  const handleLeftClick = () => {
+    setAll(allClicks.concat('L'))
+    setLeft(left+1)
+  }
+
+  const handleRightClick = () => {
+    setAll(allClicks.concat('R'))
+    setRight(right+1)
+  }
+
+  const hello = (who) => {
+    return () => {
+      console.log("Hello, ", who)
+    }
+  }
+  
+  return(
+    <div>
+      <div>
+        {left}
+        <Button onClick={handleLeftClick} text='Left'/>
+        <Button onClick={handleRightClick} text='Right'/>
+        {right}
+        <History allClicks={allClicks}/>
+      </div>
+      <Button onClick={hello("Andres")} text="Greeting" />
+      <Button onClick={hello("New User")} text="Greeting" />
+    </div>
+  )
+  }
 
 ReactDOM.render(<App/>, document.getElementById('root'))
-
-//-----------------------------------------------------------------------------
-// //Defined a new component : React component names must be capitalized
-// const Header = (props) => {
-//     return(
-//         <div>
-//             <h1>{props.course}</h1>
-//         </div>
-//     )
-// }
-
-// const Part = (props) => {
-//     return(
-//         <div>
-//             {props.partData}
-//         </div>
-//     )
-// }
-
-// const Content = (props) => {
-//     var items = []
-
-//     for(const [, content] of props.parts.entries() ) {
-//         items.push(<p> {content.name} {content.exercises}  </p>)
-//     } 
-
-//     //Using pop method will give us the last item in the array, so we reverse it!
-//     items = items.reverse()
-    
-//     return(
-//         <div>
-//             <Part partData = {items.pop()}/>
-//             <Part partData = {items.pop()}/>
-//             <Part partData = {items.pop()}/>
-//         </div>
-//     )
-// }
-
-// const Total = (props) => {
-//     var total = 0
-//     for(const data of props.exercises){
-//         total += data.exercises
-//     }
-//     return(
-//         <div>
-//             <p> Number of excercises {total}</p>
-//         </div>
-//     )
-// }
-
-// const Footer = (props) => {
-//     return(
-//         <>
-//             App created by
-//             <a href="https://github.com/andrecon"> {props.author} </a>
-//         </>
-//     )
-// }
-
-// const App = () => {
-//     const course = {
-//         name: 'Half Stack application development',
-//         parts: [
-//           {
-//             name: 'Fundamentals of React',
-//             exercises: 10
-//           },
-//           {
-//             name: 'Using props to pass data',
-//             exercises: 7
-//           },
-//           {
-//             name: 'State of a component',
-//             exercises: 14
-//           }
-//         ]
-//       }
-
-//       const date = new Date();
-//       const name = "Andres";
-//     return(
-//         <div>
-//             <p> Hello, Today is {date.toString()}</p>
-//             <Header course={course.name} />
-//             <Content parts={course.parts} />
-//             <Total exercises={course.parts} />
-//             <Footer author={name} />
-//         </div>
-//     )
-// }
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// const Hello = ({name, age}) => {
-
-//     const bornYear = () => new Date().getFullYear()-1 - age
-
-//     return (
-//         <div>
-//             <p>
-//                 Hello {name}, you are {age} years old.
-//             </p>
-//             <p>So you were probably born in {bornYear()} </p>
-//         </div>
-//     )
-// }
-
-// const App = () => {
-//     const name = "Andres";
-//     const age = 22;
-
-//     return(
-//         <div>
-//             <Hello name={name} age={age}/> 
-//         </div>
-//     )
-// }
-
-// ReactDOM.render(<App />, document.getElementById('root'));
-//-----------------------------------------------------------------------------
-
-
-//-----------------------------------------------------------------------------
-// const App = ({counter}) => {
-//     return(
-//         <div>
-//             {counter}
-//         </div>
-//     )
-// }
-
-// let counter = 1
-
-
-// const refresh = () => {
-//     ReactDOM.render(<App counter={counter} />, document.getElementById('root'));
-// }
-
-// setInterval( () => {
-//     refresh()
-//     counter+=1
-// },1000 )
-//-----------------------------------------------------------------------------
