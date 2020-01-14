@@ -17,103 +17,188 @@
 // // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister()
 
-import React from 'react'
+// import React from 'react'
 import ReactDOM from 'react-dom'
 
+import React, {useState} from 'react'
 
-//Defined a new component : React component names must be capitalized
-const Header = (props) => {
+const Display = ({counter}) => {
     return(
         <div>
-            <h1>{props.course}</h1>
+            {counter}
         </div>
     )
 }
 
-const Part = (props) => {
+const Button = ({onClick, text}) => {
+    return(
+        <button onClick={onClick}>
+            {text}
+        </button>
+    )
+}
+
+const App = (props) => {
+    const [counter, setCounter] = useState(0);
+
+    const setToValue = (value) => setCounter(value)
+
+    //Double Arrow function example
+    /*
+    const setToValue = (value) => () => setCounter(value)
+    */
+
     return(
         <div>
-            {props.partData}
+            <Display counter={counter}/>
+            <Button onClick={() => setToValue(counter + 1)} text="+" />
+            <Button onClick={() => setToValue(counter - 1)} text="-" />
+            <Button onClick={() => setToValue(0)} text="Reset" />
         </div>
     )
 }
 
-const Content = (props) => {
-    var items = []
+ReactDOM.render(<App/>, document.getElementById('root'))
 
-    for(const [, content] of props.parts.entries() ) {
-        items.push(<p> {content.name} {content.exercises}  </p>)
-    } 
-
-    //Using pop method will give us the last item in the array, so we reverse it!
-    items = items.reverse()
-    
-    return(
-        <div>
-            <Part partData = {items.pop()}/>
-            <Part partData = {items.pop()}/>
-            <Part partData = {items.pop()}/>
-        </div>
-    )
-}
-
-const Total = (props) => {
-    var total = 0
-    for(const data of props.exercises){
-        total += data.exercises
-    }
-    return(
-        <div>
-            <p> Number of excercises {total}</p>
-        </div>
-    )
-}
-
-// const course = {
-//     title: 'Half Stack application development',
-//     part1: {
-//         title: 'Fundamentals of React',
-//         exercisesNumber: 10
-//       },
-//     part2: {
-//         title: 'Using props to pass data',
-//         exercisesNumber: 7
-//     },
-//     part3: {
-//         title: 'State of a component',
-//         exercisesNumber: 14
-//     }
+//-----------------------------------------------------------------------------
+// //Defined a new component : React component names must be capitalized
+// const Header = (props) => {
+//     return(
+//         <div>
+//             <h1>{props.course}</h1>
+//         </div>
+//     )
 // }
 
-const App = () => {
-    const course = {
-        name: 'Half Stack application development',
-        parts: [
-          {
-            name: 'Fundamentals of React',
-            exercises: 10
-          },
-          {
-            name: 'Using props to pass data',
-            exercises: 7
-          },
-          {
-            name: 'State of a component',
-            exercises: 14
-          }
-        ]
-      }
+// const Part = (props) => {
+//     return(
+//         <div>
+//             {props.partData}
+//         </div>
+//     )
+// }
 
-    // var partArray = [part1.name,part2.name,part3.name]
-    // var excerciseArray = [part1.exercises,part2.exercises,part3.exercises]
+// const Content = (props) => {
+//     var items = []
 
-    return(
-        <div>
-            <Header course={course.name} />
-            <Content parts={course.parts} />
-            <Total exercises={course.parts} />
-        </div>
-    )
-}
+//     for(const [, content] of props.parts.entries() ) {
+//         items.push(<p> {content.name} {content.exercises}  </p>)
+//     } 
 
-ReactDOM.render(<App />, document.getElementById('root'));
+//     //Using pop method will give us the last item in the array, so we reverse it!
+//     items = items.reverse()
+    
+//     return(
+//         <div>
+//             <Part partData = {items.pop()}/>
+//             <Part partData = {items.pop()}/>
+//             <Part partData = {items.pop()}/>
+//         </div>
+//     )
+// }
+
+// const Total = (props) => {
+//     var total = 0
+//     for(const data of props.exercises){
+//         total += data.exercises
+//     }
+//     return(
+//         <div>
+//             <p> Number of excercises {total}</p>
+//         </div>
+//     )
+// }
+
+// const Footer = (props) => {
+//     return(
+//         <>
+//             App created by
+//             <a href="https://github.com/andrecon"> {props.author} </a>
+//         </>
+//     )
+// }
+
+// const App = () => {
+//     const course = {
+//         name: 'Half Stack application development',
+//         parts: [
+//           {
+//             name: 'Fundamentals of React',
+//             exercises: 10
+//           },
+//           {
+//             name: 'Using props to pass data',
+//             exercises: 7
+//           },
+//           {
+//             name: 'State of a component',
+//             exercises: 14
+//           }
+//         ]
+//       }
+
+//       const date = new Date();
+//       const name = "Andres";
+//     return(
+//         <div>
+//             <p> Hello, Today is {date.toString()}</p>
+//             <Header course={course.name} />
+//             <Content parts={course.parts} />
+//             <Total exercises={course.parts} />
+//             <Footer author={name} />
+//         </div>
+//     )
+// }
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// const Hello = ({name, age}) => {
+
+//     const bornYear = () => new Date().getFullYear()-1 - age
+
+//     return (
+//         <div>
+//             <p>
+//                 Hello {name}, you are {age} years old.
+//             </p>
+//             <p>So you were probably born in {bornYear()} </p>
+//         </div>
+//     )
+// }
+
+// const App = () => {
+//     const name = "Andres";
+//     const age = 22;
+
+//     return(
+//         <div>
+//             <Hello name={name} age={age}/> 
+//         </div>
+//     )
+// }
+
+// ReactDOM.render(<App />, document.getElementById('root'));
+//-----------------------------------------------------------------------------
+
+
+//-----------------------------------------------------------------------------
+// const App = ({counter}) => {
+//     return(
+//         <div>
+//             {counter}
+//         </div>
+//     )
+// }
+
+// let counter = 1
+
+
+// const refresh = () => {
+//     ReactDOM.render(<App counter={counter} />, document.getElementById('root'));
+// }
+
+// setInterval( () => {
+//     refresh()
+//     counter+=1
+// },1000 )
+//-----------------------------------------------------------------------------
