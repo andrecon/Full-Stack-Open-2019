@@ -14,11 +14,7 @@ console.log(course.parts.map(part => part.name))
 
   return(
       <div>
-        <table>
-            <tbody>
-                {parts()}
-            </tbody>
-        </table>
+            {parts()}
       </div>
   )
 
