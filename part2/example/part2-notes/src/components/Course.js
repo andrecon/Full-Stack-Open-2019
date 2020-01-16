@@ -4,13 +4,13 @@ import Content from './Content'
 
 import Sum from './Sum'
 
-const Course = ({ course }) => {
+const Course = ({ courses }) => {
 
-  const parts = course.parts.map(part => part.exercises)
+  const parts = courses.parts.map(part => part.exercises)
   return (
     <div>
-      <Header header={course.name} />
-      <Content course={course} />
+      <Header header={courses.name} />
+      <Content course={courses} />
       <Sum parts={parts} />
     </div>
   )
