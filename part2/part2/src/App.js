@@ -12,6 +12,7 @@ const App =(props) => {
     const [showAll, setShowAll] = useState(true)
 
 
+    //Effect Hooks takes a function (Effects) and then the effect is only run along with the first render of the component.
     useEffect( () => {
         console.log("effect")
         axios.get('http://localhost:3001/notes').then(response => {
@@ -19,6 +20,22 @@ const App =(props) => {
             setNotes(response.data)
         })
     }, [] )
+
+    //Or like this..
+    /*
+    useEffect(() => {
+        console.log('effect')
+
+        //reference to an event handler function
+        const eventHandler = response => {
+            console.log('promise fulfilled')
+            setNotes(response.data)
+        }
+
+        const promise = axios.get('http://localhost:3001/notes')
+        promise.then(eventHandler)
+    }, [])
+    */
 
     console.log('render', notes.length, 'notes')
 
