@@ -4,7 +4,7 @@ import React from 'react'
 //separate displaying a single note into its own component Note:
 const Note = ({note}) => {
     return(
-        <li> {note.content} </li>
+        <li key={note.id}> {note.content} </li>
     )
 }
 

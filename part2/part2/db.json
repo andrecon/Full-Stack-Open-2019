@@ -17,6 +17,36 @@
       "content": "GET and POST are the most important methods of HTTP protocol",
       "date": "2019-05-30T19:20:14.298Z",
       "important": true
+    },
+    {
+      "content": "That was easy",
+      "date": "2020-01-19T22:01:35.400Z",
+      "important": false,
+      "id": 4
+    },
+    {
+      "content": "that was easy",
+      "date": "2020-01-19T22:03:52.406Z",
+      "important": true,
+      "id": 5
+    },
+    {
+      "content": "That was easy",
+      "date": "2020-01-19T22:04:24.935Z",
+      "important": false,
+      "id": 6
+    },
+    {
+      "content": "Ok this time it will work",
+      "date": "2020-01-19T22:05:08.209Z",
+      "important": false,
+      "id": 7
+    },
+    {
+      "content": "I swear this will work",
+      "date": "2020-01-19T22:08:19.168Z",
+      "important": true,
+      "id": 8
     }
   ]
 }

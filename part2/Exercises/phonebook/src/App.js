@@ -1,22 +1,27 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 import Filter from './Components/Filter'
 import PersonForm from './Components/PersonForm'
 import Persons from './Components/Persons'
 
+import axios from 'axios'
 
 const App = () => {
-    const [person, setPerson] = useState([
-      { name: 'Arto Hellas', number: '040-123456' },
-      { name: 'Ada Lovelace', number: '39-44-5323523' },
-      { name: 'Dan Abramov', number: '12-43-234345' },
-      { name: 'Mary Poppendieck', number: '39-23-6423122' }
-    ])
-
+    const [person, setPerson] = useState([])
     const [name, setNewName] = useState('')
     const [number, setNewNumber] = useState('')
     const [filter, setFilter] = useState('')
-  
+
+
+    //Using Effect hook
+    useEffect( () => {
+        console.log("effect")
+        axios.get('http://localhost:3001/persons').then( response => {
+            console.log("promise fullfilled")
+            setPerson(response.data)
+        })
+    }, [])
+    
     return(
         <div>
             <h2>Phonebook</h2>
